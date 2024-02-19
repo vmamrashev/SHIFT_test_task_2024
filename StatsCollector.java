@@ -1,8 +1,13 @@
 public class StatsCollector {
-    private int count;
-    private bulean neadFullStats = false;
+    protected int count = 0;
+    protected boolean neadFullStats = false;
 
-    public StatsCollector(bulean neadFullStats){
+    public StatsCollector(){
+        this.neadFullStats = false;
+        this.count = 0;
+    }
+
+    public StatsCollector(boolean neadFullStats){
         this.neadFullStats = neadFullStats;
     }
 

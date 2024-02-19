@@ -1,15 +1,9 @@
 public class IntStatsCollector extends StatsCollector{
-    private int count;
-    private int max = Integer.MinValue;  // Не надо ли сделать поле статическим?
-    private int min = Integer.MaxValue; // Не надо ли сделать поле статическим?
-    private int sum = 0;
-    private bulean neadFullStats = false; // Поле уже унаследовано ?
 
-/* Метод уже унаследован 
-    public IntStatsCollector(bulean neadFullStats){
-        this.neadFullStats = neadFullStats;
-    }
-*/
+    private int max = Integer.MIN_VALUE;
+    private int min = Integer.MAX_VALUE;
+    private int sum = 0;
+
     public void addValue(int value) {
         count++;
         if (neadFullStats) {
@@ -19,11 +13,6 @@ public class IntStatsCollector extends StatsCollector{
         }
     }
 
-/* Метод уже унаследован 
-    public int getCount(){
-        return count;
-    }
-*/
     public int getMax(){
         return max;
     }
