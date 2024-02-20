@@ -6,7 +6,7 @@ public class FloatStatsCollector extends StatsCollector{
 
     public void addValue(float value) {
         count++;
-        if (neadFullStats) {
+        if (needFullStats) {
             sum = sum + value;
             if (value > max) max = value;
             if (value < min) min = value;

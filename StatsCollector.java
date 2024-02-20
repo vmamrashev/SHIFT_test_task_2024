@@ -1,14 +1,14 @@
 public class StatsCollector {
     protected int count = 0;
-    protected boolean neadFullStats = false;
+    protected boolean needFullStats = false;
 
     public StatsCollector(){
-        this.neadFullStats = false;
+        this.needFullStats = false;
         this.count = 0;
     }
 
-    public StatsCollector(boolean neadFullStats){
-        this.neadFullStats = neadFullStats;
+    public StatsCollector(boolean needFullStats){
+        this.needFullStats = needFullStats;
     }
 
     public int getCount(){

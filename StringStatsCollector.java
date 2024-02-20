@@ -5,7 +5,7 @@ public class StringStatsCollector extends StatsCollector{
 
     public void addValue(String value) {
         count++;
-        if (neadFullStats) {
+        if (needFullStats) {
             if (value.length() > maxLength) maxLength = value.length();
             if (value.length() < minLength) minLength = value.length();
         }

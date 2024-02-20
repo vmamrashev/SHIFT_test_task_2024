@@ -6,7 +6,7 @@ public class IntStatsCollector extends StatsCollector{
 
     public void addValue(int value) {
         count++;
-        if (neadFullStats) {
+        if (needFullStats) {
             sum = sum + value;
             if (value > max) max = value;
             if (value < min) min = value;
