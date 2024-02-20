@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -9,7 +8,7 @@ public class Solution {
     public static void main(String[] args) {
 
 
-        cliArgsParser parser = new cliArgsParser();
+        CliArgsParser parser = new CliArgsParser();
         List<String> fileNames1 = parser.parse(args);
 
         System.out.print("Содержимое списка fileNames: ");
