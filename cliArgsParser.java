@@ -98,21 +98,21 @@ public class cliArgsParser {
     public List<String> getFileNames() {
         return fileNames;
     }
-
+//
     public boolean isFullStatsNeeded() {
         return needFullStats;
     }
-
+    //
     public boolean isFilenamePrefixNeeded() {
         return needFilenamePrefix;
     }
-
-    public boolean needToChooseOutputPath() {
+    //
+    public boolean isChoosingPathNeeded() {
         return needToChooseOutputPath;
     }
 
-    public boolean needToAddToOutputFiles() {
-        return needFilenamePrefix;
+    public boolean isAddingNeeded() {
+        return needToAddToOutputFiles;
     }
 
     public String getOutputPath() {
