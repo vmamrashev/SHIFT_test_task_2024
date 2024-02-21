@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -7,7 +9,29 @@ public class Solution {
 
     public static void main(String[] args) {
 
+        List<String> fileNames = new ArrayList<>();
+        InputFilesReader reader;
+        try {
+            fileNames.add("1.txt");
+            fileNames.add("2.txt");
+            reader = new InputFilesReader(fileNames);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(reader.getNextString());
 
+
+/*
+        CliArgsParser parser = new CliArgsParser();
+        try {
+            InputFilesReader filesReader = new InputFilesReader(parser.parse(args));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+ */
+
+/*
         CliArgsParser parser = new CliArgsParser();
         List<String> fileNames1 = parser.parse(args);
 
@@ -31,6 +55,7 @@ public class Solution {
 
         System.out.print("fileNamePrefix ");
         System.out.println(parser.getFileNamePrefix()+ "\n");
+        */
 
     }
 
