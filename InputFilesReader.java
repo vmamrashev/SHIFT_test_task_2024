@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,7 +10,7 @@ public class InputFilesReader {
 
     public InputFilesReader(List<String> fileNames) throws FileNotFoundException {
         this.fileNames = fileNames;
-        this.fileReaders = new List<Scanner>();
+        this.fileReaders = new ArrayList<Scanner>();
         for (String fileName : fileNames) {
             try {
                 fileReaders.add(new Scanner(new File(fileName)));
