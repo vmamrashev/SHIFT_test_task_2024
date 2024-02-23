@@ -99,15 +99,15 @@ public class CliArgsParser {
     public List<String> getFileNames() {
         return fileNames;
     }
-//
+
     public boolean isFullStatsNeeded() {
         return needFullStats;
     }
-    //
+
     public boolean isFilenamePrefixNeeded() {
         return needFilenamePrefix;
     }
-    //
+
     public boolean isChoosingPathNeeded() {
         return needToChooseOutputPath;
     }

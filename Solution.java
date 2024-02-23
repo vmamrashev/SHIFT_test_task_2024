@@ -9,19 +9,27 @@ public class Solution {
 
     public static void main(String[] args) {
 
+//Проверка чтения из файлов
         List<String> fileNames = new ArrayList<>();
         InputFilesReader reader;
         try {
             fileNames.add("1.txt");
             fileNames.add("2.txt");
+            fileNames.add("3.txt");
             reader = new InputFilesReader(fileNames);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(reader.getNextString());
-
+        int counter =0;
+        String readString = "";
+        do {
+            readString = reader.getNextString();
+            System.out.println(readString);
+        } while (!readString.equals(""));
 
 /*
+
+// Проверка работоспособности класса CliArgsParser (не падает ли в рантайме)
         CliArgsParser parser = new CliArgsParser();
         try {
             InputFilesReader filesReader = new InputFilesReader(parser.parse(args));
@@ -32,6 +40,8 @@ public class Solution {
  */
 
 /*
+
+// Проверка корректности записи в поля парсера
         CliArgsParser parser = new CliArgsParser();
         List<String> fileNames1 = parser.parse(args);
 

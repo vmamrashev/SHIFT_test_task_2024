@@ -11,6 +11,7 @@ public class InputFilesReader {
     public InputFilesReader(List<String> fileNames) throws FileNotFoundException {
         this.fileNames = fileNames;
         this.fileReaders = new ArrayList<Scanner>();
+        if (fileNames.isEmpty()) throw new IllegalArgumentException("Не указаны имена входных файлов");
         for (String fileName : fileNames) {
             try {
                 fileReaders.add(new Scanner(new File(fileName)));
@@ -23,15 +24,16 @@ public class InputFilesReader {
     }
 
     public String getNextString(){
-        boolean allFilesAreDone = false;
-        String stringFromFile = "";
-        while (!fileReaders.isEmpty()) {
+        
+        String stringFromFiles = "";
+
             for (Scanner fileReader : fileReaders) {
-                //System.out.println(fileName);
-                stringFromFile = fileReader.nextLine();
+                if (fileReader.hasNext()) {
+                    stringFromFiles = stringFromFiles + fileReader.nextLine() + "\n";
+                }
             }
-        }
-        return stringFromFile;
+
+        return stringFromFiles;
     }
 
 
