@@ -24,7 +24,7 @@ public class InputFilesReader {
     }
 
     public String getNextString(){
-        
+
         String stringFromFiles = "";
 
             for (Scanner fileReader : fileReaders) {

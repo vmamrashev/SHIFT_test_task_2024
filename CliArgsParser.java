@@ -4,13 +4,13 @@ import java.util.List;
 //Парсер не универсален. Не устойчив к случаям произвольной очередности ввода аргументов командной строки
 
 public class CliArgsParser {
-    boolean needFullStats;          // Флаг, устанавливаемый в true, если нужна полная статистика
-    boolean needFilenamePrefix;     // Флаг, устанавливаемый в true, если необходимо добавлять префикс к именам выходных файлов
-    boolean needToChooseOutputPath; // Флаг, устанавливаемый в true, если необходимо сохранять выходные файлы не в текущую папку
-    boolean needToAddToOutputFiles; // Флаг, устанавливаемый в true, если необходимо дописывать, а не перезаписывать выходные файлы
-    String outputPath;              // Строка, хранящая путь к папке, куда сохранять выходные файлы
-    String fileNamePrefix;          // Строка, хранящая префикс имён файлов
-    List<String> fileNames;         // Список, хранящий имена выходных файлов
+    private boolean needFullStats;          // Флаг, устанавливаемый в true, если нужна полная статистика
+    private boolean needFilenamePrefix;     // Флаг, устанавливаемый в true, если необходимо добавлять префикс к именам выходных файлов
+    private boolean needToChooseOutputPath; // Флаг, устанавливаемый в true, если необходимо сохранять выходные файлы не в текущую папку
+    private boolean needToAddToOutputFiles; // Флаг, устанавливаемый в true, если необходимо дописывать, а не перезаписывать выходные файлы
+    private String outputPath;              // Строка, хранящая путь к папке, куда сохранять выходные файлы
+    private String fileNamePrefix;          // Строка, хранящая префикс имён файлов
+    public List<String> fileNames;         // Список, хранящий имена выходных файлов
 
     public  CliArgsParser(){
         this.needFullStats = false;
@@ -66,7 +66,7 @@ public class CliArgsParser {
                 }
 
                 if(localNeedToChooseOutputPath) {
-                    outputPath = outputPath + arg;          // В поле объекта outputPath сохраняется значение arg как путь к выходным файлам
+                    outputPath = arg;                       // В поле объекта outputPath сохраняется значение arg как путь к выходным файлам
                     localNeedToChooseOutputPath = false;    // Флаг устанавливается в false, чтобы при последующих итерациях аргументы не возпринимались как путь к выходным файлам
                     continue;
                 }
