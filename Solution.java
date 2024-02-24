@@ -12,7 +12,7 @@ public class Solution {
 //Проверка Writer'a
 
 
-        String[] argsuments = {"-s", "-o", "output/",  "1.txt", "2.txt" };
+        String[] argsuments = {"-s", "-p", "_prefix_", "1.txt", "2.txt" };
         CliArgsParser parser = new CliArgsParser();
         parser.parse(argsuments);
         InputFilesReader filesReader = new InputFilesReader(parser.getFileNames());
