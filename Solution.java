@@ -15,7 +15,7 @@ public class Solution {
         try {
             fileNames.add("1.txt");
             fileNames.add("2.txt");
-            
+
             reader = new InputFilesReader(fileNames);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
