@@ -1,18 +1,18 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.Writer;
+import java.io.*;
 
 public class FilesWriter {
     private CliArgsParser parser;
     private InputFilesReader reader;
     private Writer writer;
     private String outputPath;
-    private String intsOutputfileName;
-    private String floatsOutputfileName;
-    private String stringsOutputfileName;
-
-
-    public FilesWriter(CliArgsParser parser, String[] args, InputFilesReader reader) throws FileNotFoundException {
+    private String intsOutputFileName;
+    private String floatsOutputFileName;
+    private String stringsOutputFileName;
+    FileWriter intsWriter;
+    FileWriter floatsWriter;
+    FileWriter stringsWriter;
+    
+    public FilesWriter(CliArgsParser parser, String[] args, InputFilesReader reader) throws IOException {
         this.parser = new CliArgsParser(); // удалить после тестирования
         parser.parse(args);                // удалить после тестирования
         //this.parser = parser;                // вернуть после тестирования
@@ -23,9 +23,13 @@ public class FilesWriter {
             throw new FileNotFoundException("Папка " + outputPath + "не существует.");
         }
         generateOutputFileNames();
+        FileWriter intsWriter = new FileWriter(intsOutputFileName);
+        FileWriter floatsWriter = new FileWriter(floatsOutputFileName);
+        FileWriter stringsWriter = new FileWriter(stringsOutputFileName);
+
     }
 
-    public void splitAndWriteTypes(InputFilesReader reader){
+    public void splitAndWriteTypes(InputFilesReader reader) throws IOException {
         boolean isIntFirstOccurrence = true;
         boolean isFloatFirstOccurrence = true;
         boolean isStringFirstOccurrence = true;
@@ -33,7 +37,6 @@ public class FilesWriter {
 
         do {
             readString = reader.getNextString();
-
             String[] subStringsArray = readString.split("\n");
             // **************** Парсинг строк в типы ****************
             for (String currentSubString : subStringsArray) {
@@ -63,27 +66,40 @@ public class FilesWriter {
 
     }
     // ***************************** Запись файлы ***********************
-    private void writeInteger(int i, boolean isIntFirstOccurrence){
-
+    private void writeInteger(int i, boolean isIntFirstOccurrence) throws IOException {
+        try {
+        this.intsWriter.write(i + "/n");
+        } catch (IOException e) {
+            throw new RuntimeException("Wrong string");
+        }
     }
 
-    private void writeFloat(float f, boolean isFloatFirstOccurrence){
-
+    private void writeFloat(float f, boolean isFloatFirstOccurrence) throws IOException {
+        try {
+        this.floatsWriter.write((String.valueOf(f) + "/n"));
+        } catch (IOException e) {
+            throw new RuntimeException("Wrong string");
+        }
     }
 
-    private void writeString(String s, boolean isStringFirstOccurrence){
+    private void writeString(String s, boolean isStringFirstOccurrence) throws IOException {
 
+        try {
+            this.intsWriter.write(s + "/n");
+        } catch (IOException e) {
+            throw new RuntimeException("Wrong string");
+        }
     }
 
     private void generateOutputFileNames(){
         if (parser.isFilenamePrefixNeeded()) {
-            this.intsOutputfileName = parser.getOutputPath() + parser.getFileNamePrefix();
-            this.floatsOutputfileName = parser.getOutputPath() + parser.getFileNamePrefix();
-            this.stringsOutputfileName = parser.getOutputPath() + parser.getFileNamePrefix();
+            this.intsOutputFileName = parser.getOutputPath() + parser.getFileNamePrefix();
+            this.floatsOutputFileName = parser.getOutputPath() + parser.getFileNamePrefix();
+            this.stringsOutputFileName = parser.getOutputPath() + parser.getFileNamePrefix();
         }
-        this.intsOutputfileName = parser.getOutputPath() + "integers.txt";
-        this.floatsOutputfileName = parser.getOutputPath() + "floats.txt";
-        this.stringsOutputfileName = parser.getOutputPath() + "strings.txt";
+        this.intsOutputFileName = parser.getOutputPath() + "integers.txt";
+        this.floatsOutputFileName = parser.getOutputPath() + "floats.txt";
+        this.stringsOutputFileName = parser.getOutputPath() + "strings.txt";
     }
 
 }

@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +8,20 @@ public class Solution {
 
     //   List<String> fileNames;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+//Проверка Writer'a
 
+
+        String[] argsuments = {"-s", "-p", "_prefix_", "1.txt", "2.txt" };
+        CliArgsParser parser = new CliArgsParser();
+        parser.parse(argsuments);
+        InputFilesReader filesReader = new InputFilesReader(parser.getFileNames());
+        FilesWriter filesWriter = new FilesWriter(parser, argsuments, filesReader);
+        filesWriter.splitAndWriteTypes(filesReader);
+
+
+
+/*
 //Проверка чтения из файлов
         List<String> fileNames = new ArrayList<>();
         InputFilesReader reader;
@@ -26,9 +39,9 @@ public class Solution {
             readString = reader.getNextString();
             System.out.println(readString);
         } while (!readString.equals(""));
+*/
 
 /*
-
 // Проверка работоспособности класса CliArgsParser (не падает ли в рантайме)
         CliArgsParser parser = new CliArgsParser();
         try {
