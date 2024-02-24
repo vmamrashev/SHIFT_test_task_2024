@@ -13,9 +13,9 @@ public class FilesWriter {
     FileWriter stringsWriter;
     
     public FilesWriter(CliArgsParser parser, String[] args, InputFilesReader reader) throws IOException {
-        this.parser = new CliArgsParser(); // удалить после тестирования
-        parser.parse(args);                // удалить после тестирования
-        //this.parser = parser;                // вернуть после тестирования
+        //this.parser = new CliArgsParser(); // удалить после тестирования
+        //parser.parse(args);                // удалить после тестирования
+        this.parser = parser;                // вернуть после тестирования
         this.outputPath = parser.getOutputPath();
         this.reader = reader;
         File file = new File(outputPath);
@@ -23,9 +23,9 @@ public class FilesWriter {
             throw new FileNotFoundException("Папка " + outputPath + "не существует.");
         }
         generateOutputFileNames();
-        FileWriter intsWriter = new FileWriter(intsOutputFileName);
-        FileWriter floatsWriter = new FileWriter(floatsOutputFileName);
-        FileWriter stringsWriter = new FileWriter(stringsOutputFileName);
+        this.intsWriter = new FileWriter(intsOutputFileName);
+        this.floatsWriter  = new FileWriter(floatsOutputFileName);
+        this.stringsWriter  = new FileWriter(stringsOutputFileName);
 
     }
 
@@ -37,11 +37,13 @@ public class FilesWriter {
 
         do {
             readString = reader.getNextString();
+
             String[] subStringsArray = readString.split("\n");
             // **************** Парсинг строк в типы ****************
             for (String currentSubString : subStringsArray) {
                 try {
                     int i = Integer.parseInt(currentSubString);
+                    //System.out.println(i + "\n");//************************// Удалить после отладки
                     writeInteger(i, isIntFirstOccurrence);
                     isIntFirstOccurrence = false;
                     continue;
@@ -49,12 +51,14 @@ public class FilesWriter {
                 catch (NumberFormatException e){
                     try {
                         float f = Float.parseFloat(currentSubString);
+                        //System.out.println(f + "\n");//*********************// Удалить после отладки
                         writeFloat(f, isFloatFirstOccurrence);
                         isFloatFirstOccurrence = false;
                         continue;
                     }
                         catch (NumberFormatException e1){
                             if (!currentSubString.equals(" ")&& !currentSubString.equals("\n")&& !currentSubString.isEmpty()) {
+                                //System.out.println(currentSubString + "\n"); // Удалить после отладки
                                 writeString(currentSubString, isStringFirstOccurrence);
                                 isStringFirstOccurrence = false;
                             }
@@ -68,7 +72,8 @@ public class FilesWriter {
     // ***************************** Запись файлы ***********************
     private void writeInteger(int i, boolean isIntFirstOccurrence) throws IOException {
         try {
-        this.intsWriter.write(i + "/n");
+            System.out.println(i + "\n");//************************// Удалить после отладки
+            this.intsWriter.write(i + "/n");
         } catch (IOException e) {
             throw new RuntimeException("Wrong string");
         }
@@ -76,16 +81,18 @@ public class FilesWriter {
 
     private void writeFloat(float f, boolean isFloatFirstOccurrence) throws IOException {
         try {
-        this.floatsWriter.write((String.valueOf(f) + "/n"));
+            System.out.println(f + "\n");//*********************// Удалить после отладки
+            this.floatsWriter.write((String.valueOf(f) + "/n"));
         } catch (IOException e) {
             throw new RuntimeException("Wrong string");
         }
     }
 
-    private void writeString(String s, boolean isStringFirstOccurrence) throws IOException {
+    private void writeString(String currentSubString, boolean isStringFirstOccurrence) throws IOException {
 
         try {
-            this.intsWriter.write(s + "/n");
+            System.out.println(currentSubString + "\n"); // Удалить после отладки
+            this.intsWriter.write(currentSubString + "/n");
         } catch (IOException e) {
             throw new RuntimeException("Wrong string");
         }
@@ -93,13 +100,14 @@ public class FilesWriter {
 
     private void generateOutputFileNames(){
         if (parser.isFilenamePrefixNeeded()) {
-            this.intsOutputFileName = parser.getOutputPath() + parser.getFileNamePrefix();
-            this.floatsOutputFileName = parser.getOutputPath() + parser.getFileNamePrefix();
-            this.stringsOutputFileName = parser.getOutputPath() + parser.getFileNamePrefix();
+            intsOutputFileName = parser.getOutputPath() + parser.getFileNamePrefix() + "integers.txt";
+            floatsOutputFileName = parser.getOutputPath() + parser.getFileNamePrefix() + "floats.txt";
+            this.stringsOutputFileName = parser.getOutputPath() + parser.getFileNamePrefix() + "strings.txt";
+        } else {
+            this.intsOutputFileName = parser.getOutputPath() + "integers.txt";
+            this.floatsOutputFileName = parser.getOutputPath() + "floats.txt";
+            this.stringsOutputFileName = parser.getOutputPath() + "strings.txt";
         }
-        this.intsOutputFileName = parser.getOutputPath() + "integers.txt";
-        this.floatsOutputFileName = parser.getOutputPath() + "floats.txt";
-        this.stringsOutputFileName = parser.getOutputPath() + "strings.txt";
     }
 
 }

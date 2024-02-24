@@ -12,7 +12,7 @@ public class Solution {
 //Проверка Writer'a
 
 
-        String[] argsuments = {"-s", "-p", "_prefix_", "1.txt", "2.txt" };
+        String[] argsuments = {"-s", "-o", "output/", "-p", "_prefix_",  "1.txt", "2.txt" };
         CliArgsParser parser = new CliArgsParser();
         parser.parse(argsuments);
         InputFilesReader filesReader = new InputFilesReader(parser.getFileNames());
@@ -52,10 +52,10 @@ public class Solution {
 
  */
 
-/*
 
+/*
 // Проверка корректности записи в поля парсера
-        CliArgsParser parser = new CliArgsParser();
+        //CliArgsParser parser = new CliArgsParser();
         List<String> fileNames1 = parser.parse(args);
 
         System.out.print("Содержимое списка fileNames: ");
@@ -78,8 +78,8 @@ public class Solution {
 
         System.out.print("fileNamePrefix ");
         System.out.println(parser.getFileNamePrefix()+ "\n");
-        */
 
+*/
     }
 
 }
