@@ -22,8 +22,8 @@ public class FloatStatsCollector extends StatsCollector{
     }
 
     public float getMean(){
-        return count > 0 ? (sum / count) : 0f; // При значении sum = +/- infinity будет ошибка?
-                                               // Может если не встретились float во вводе, вернуть Nan? 
+        return count > 0 ? (sum / count) : 0f;
+
     }
 
     public float getSum(){

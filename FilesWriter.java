@@ -16,9 +16,7 @@ public class FilesWriter {
     StringStatsCollector stringStatsCollector;
 
     public FilesWriter(CliArgsParser parser, String[] args, InputFilesReader reader) throws IOException {
-        //this.parser = new CliArgsParser(); // удалить после тестирования
-        //parser.parse(args);                // удалить после тестирования
-        this.parser = parser;                // вернуть после тестирования
+        this.parser = parser;
         this.outputPath = parser.getOutputPath();
         this.reader = reader;
         File file = new File(outputPath);
@@ -74,12 +72,9 @@ public class FilesWriter {
         }
         if (this.stringsWriter != null) {
             System.out.println(StringStatsCollector.getStats());
-            //System.out.println(StringStatsCollector.getMax());
             this.stringsWriter.close();
         }
     }
-
-
 
 // *************************** Запись в файлы, передача значений в статистику ***************************
 
@@ -91,7 +86,8 @@ public class FilesWriter {
             this.intStatsCollector.setKindOfStats(this.parser.isFullStatsNeeded());
         }
         try {
-            this.intsWriter.write(i + "\n");
+            if (parser.isAddingNeeded()) this.intsWriter.append(i + "\n");
+            else this.intsWriter.write(i + "\n");
             this.intStatsCollector.addValue(i);
         } catch (IOException e) {
             throw new RuntimeException("Wrong string");
@@ -105,7 +101,8 @@ public class FilesWriter {
             this.floatsWriter  = new FileWriter(floatsOutputFileName);
         }
             try {
-                this.floatsWriter.write((String.valueOf(f) + "\n"));
+                if (parser.isAddingNeeded()) this.floatsWriter.append((String.valueOf(f) + "\n"));
+                else this.floatsWriter.write((String.valueOf(f) + "\n"));
                 this.floatStatsCollector.addValue(f);
         } catch (IOException e) {
             throw new RuntimeException("Wrong string");
@@ -119,7 +116,9 @@ public class FilesWriter {
             this.stringsWriter  = new FileWriter(stringsOutputFileName);
         }
         try {
-            this.stringsWriter.write(currentSubString + "\n");
+            this.stringStatsCollector = new StringStatsCollector();
+            if (parser.isAddingNeeded()) this.stringsWriter.append(currentSubString + "\n");
+            else this.stringsWriter.write(currentSubString + "\n");
             this.stringStatsCollector.addValue(currentSubString);
         } catch (IOException e) {
             throw new RuntimeException("Wrong string");

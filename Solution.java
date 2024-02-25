@@ -6,19 +6,27 @@ import java.util.List;
 
 public class Solution {
 
-    //   List<String> fileNames;
-
     public static void main(String[] args) throws IOException {
+/*
+        CliArgsParser parser = new CliArgsParser();
+        parser.parse(args);
+        InputFilesReader filesReader = new InputFilesReader(parser.getFileNames());
+        FilesWriter filesWriter = new FilesWriter(parser, args, filesReader);
+        filesWriter.splitAndWriteTypes(filesReader);
+            System.out.println("Чтение файлов, сортировка по типам и запись в соответствующие типам файлы закончена");
+            System.out.println(filesWriter.intStatsCollector.getStats());
+            System.out.println(filesWriter.floatStatsCollector.getStats());
+            System.out.println(filesWriter.stringStatsCollector.getStats());
+        }
+*/
+
 //Проверка Writer'a
-
-
-        String[] argsuments = {"-f", "-p", "_prefix_", "1.txt", "2.txt" };
+        String[] argsuments = {"-f", "-a", "-p", "_prefix_", "1.txt", "2.txt" };
         CliArgsParser parser = new CliArgsParser();
         parser.parse(argsuments);
         InputFilesReader filesReader = new InputFilesReader(parser.getFileNames());
         FilesWriter filesWriter = new FilesWriter(parser, argsuments, filesReader);
         filesWriter.splitAndWriteTypes(filesReader);
-
 
 
 /*
