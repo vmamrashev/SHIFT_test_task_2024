@@ -81,7 +81,7 @@ public class FilesWriter {
 // Создание коллектора статистики Integer, запись статистики, запись в файл
     private void writeInteger(long i, boolean isIntFirstOccurrence) throws IOException {
         if (isIntFirstOccurrence) {
-            this.intsWriter = new FileWriter(intsOutputFileName);
+            this.intsWriter = new FileWriter(intsOutputFileName, parser.isAddingNeeded());
             this.intStatsCollector = new IntStatsCollector ();
             this.intStatsCollector.setKindOfStats(this.parser.isFullStatsNeeded());
         }
@@ -98,7 +98,7 @@ public class FilesWriter {
         if (isFloatFirstOccurrence) {
             this.floatStatsCollector = new FloatStatsCollector();
             this.floatStatsCollector.setKindOfStats(this.parser.isFullStatsNeeded());
-            this.floatsWriter  = new FileWriter(floatsOutputFileName);
+            this.floatsWriter  = new FileWriter(floatsOutputFileName,  parser.isAddingNeeded());
         }
             try {
                 if (parser.isAddingNeeded()) this.floatsWriter.append((String.valueOf(f) + "\n"));
@@ -113,7 +113,7 @@ public class FilesWriter {
         if (isStringFirstOccurrence) {
             this.stringStatsCollector = new StringStatsCollector();
             this.stringStatsCollector.setKindOfStats(this.parser.isFullStatsNeeded());
-            this.stringsWriter  = new FileWriter(stringsOutputFileName);
+            this.stringsWriter  = new FileWriter(stringsOutputFileName, parser.isAddingNeeded());
         }
         try {
             this.stringStatsCollector = new StringStatsCollector();
