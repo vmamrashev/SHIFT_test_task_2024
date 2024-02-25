@@ -29,4 +29,18 @@ public class FloatStatsCollector extends StatsCollector{
     public float getSum(){
         return sum;
     }
+
+    public String getStats(){
+        if (needFullStats){
+            this.stats = "\n- Количество записанных в файл значений Float - " + count + "\n"
+                    + "Минимальное значение - " + getMin() + "\n"
+                    + "Максимальное значение - " + getMax() + "\n"
+                    + "Сумма - " + getSum() + "\n"
+                    + "Среднее значение - " + getMean();
+        }
+        else {
+            this.stats = "\n- Количество записанных в файл значений Float - " + count + "\n";
+        }
+        return this.stats;
+    }
 }

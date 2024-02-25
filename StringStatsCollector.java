@@ -1,7 +1,9 @@
 public class StringStatsCollector extends StatsCollector{
 
-    private int maxLength = 0;
-    private int minLength = Integer.MAX_VALUE;
+    private static int maxLength = 0;
+    private static int minLength = Integer.MAX_VALUE;
+    private static int count;
+    private static boolean needFullStats;
 
     public void addValue(String value) {
         count++;
@@ -11,12 +13,29 @@ public class StringStatsCollector extends StatsCollector{
         }
     }
 
-    public int getMax(){
+    public void setKindOfStats(boolean FullStatsSetter){
+        needFullStats = FullStatsSetter;
+    }
+
+    public static int getMax(){
         return maxLength;
     }
 
-    public int getMin(){
+    public static int getMin(){
         return minLength;
+    }
+
+    public static String getStats(){
+        String stringStats = "";
+        if (needFullStats){
+            stringStats = "\n- Количество записанных в файл значений String - " + count + "\n"
+                    + "Минимальное длина - " + getMin() + "\n"
+                    + "Максимальное длина - " + getMax() + "\n";
+        }
+        else {
+            stringStats = "\n- Количество записанных в файл значений String - " + count;
+        }
+        return stringStats;
     }
 
 }

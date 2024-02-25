@@ -1,10 +1,10 @@
 public class IntStatsCollector extends StatsCollector{
 
-    private int max = Integer.MIN_VALUE;
-    private int min = Integer.MAX_VALUE;
-    private int sum = 0;
+    private long max = Long.MIN_VALUE;
+    private long min = Long.MAX_VALUE;
+    private long sum = 0;
 
-    public void addValue(int value) {
+    public void addValue(long value) {
         count++;
         if (needFullStats) {
             sum = sum + value;
@@ -13,19 +13,34 @@ public class IntStatsCollector extends StatsCollector{
         }
     }
 
-    public int getMax(){
+    public long getMax(){
         return max;
     }
 
-    public int getMin(){
+    public long getMin(){
         return min;
     }
 
-    public int getMean(){
+    public long getMean(){
         return count > 0 ? (sum / count) : 0;
     }
 
-    public int getSum(){
+    public long getSum(){
         return sum;
     }
+
+    public String getStats(){
+        if (needFullStats){
+            this.stats = "\n- Количество записанных в файл значений Int - " + count + "\n"
+                            + "Минимальное значение - " + getMin() + "\n"
+                            + "Максимальное значение - " + getMax() + "\n"
+                            + "Сумма - " + getSum() + "\n"
+                            + "Среднее значение - " + getMean();
+        }
+        else {
+            this.stats = "\n- Количество записанных в файл значений Int - " + count + "\n";
+        }
+        return this.stats;
+    }
+
 }

@@ -11,7 +11,10 @@ public class FilesWriter {
     FileWriter intsWriter;
     FileWriter floatsWriter;
     FileWriter stringsWriter;
-    
+    IntStatsCollector intStatsCollector;
+    FloatStatsCollector  floatStatsCollector;
+    StringStatsCollector stringStatsCollector;
+
     public FilesWriter(CliArgsParser parser, String[] args, InputFilesReader reader) throws IOException {
         //this.parser = new CliArgsParser(); // удалить после тестирования
         //parser.parse(args);                // удалить после тестирования
@@ -23,9 +26,6 @@ public class FilesWriter {
             throw new FileNotFoundException("Папка " + outputPath + "не существует.");
         }
         generateOutputFileNames();
-        this.intsWriter = new FileWriter(intsOutputFileName);
-        this.floatsWriter  = new FileWriter(floatsOutputFileName);
-        this.stringsWriter  = new FileWriter(stringsOutputFileName);
 
     }
 
@@ -39,16 +39,13 @@ public class FilesWriter {
             readString = reader.getNextString();
 
             String[] subStringsArray = readString.split("\n");
-            // **************** Парсинг строк в типы ****************
+// ******************************** Парсинг строк в типы ********************************
             for (String currentSubString : subStringsArray) {
                 try {
-                    if (currentSubString.matches("[+,-]?[0-9]+")) {
-                        // int i = Integer.parseInt(currentSubString);
-                        // writeInteger(i, isIntFirstOccurrence);
-                        writeInteger(currentSubString, isIntFirstOccurrence);
+                    long i = Long.parseLong(currentSubString);
+                        writeInteger(i, isIntFirstOccurrence);
                         isIntFirstOccurrence = false;
                         continue;
-                    } else throw new NumberFormatException();
                 }
                 catch (NumberFormatException e){
                     try {
@@ -67,37 +64,69 @@ public class FilesWriter {
             }
 
         } while (!readString.isEmpty());
-        this.intsWriter.close();
-        this.floatsWriter.close();
-        this.stringsWriter.close();
+        if (this.intsWriter != null) {
+            System.out.println(intStatsCollector.getStats());
+            this.intsWriter.close();
+        }
+        if (this.floatsWriter != null) {
+            System.out.println(floatStatsCollector.getStats());
+            this.floatsWriter.close();
+        }
+        if (this.stringsWriter != null) {
+            System.out.println(StringStatsCollector.getStats());
+            //System.out.println(StringStatsCollector.getMax());
+            this.stringsWriter.close();
+        }
     }
-    // ***************************** Запись файлы ***********************
-    private void writeInteger(String i, boolean isIntFirstOccurrence) throws IOException {
-        try {
 
+
+
+// *************************** Запись в файлы, передача значений в статистику ***************************
+
+// Создание коллектора статистики Integer, запись статистики, запись в файл
+    private void writeInteger(long i, boolean isIntFirstOccurrence) throws IOException {
+        if (isIntFirstOccurrence) {
+            this.intsWriter = new FileWriter(intsOutputFileName);
+            this.intStatsCollector = new IntStatsCollector ();
+            this.intStatsCollector.setKindOfStats(this.parser.isFullStatsNeeded());
+        }
+        try {
             this.intsWriter.write(i + "\n");
+            this.intStatsCollector.addValue(i);
         } catch (IOException e) {
             throw new RuntimeException("Wrong string");
         }
     }
-
+// Создание коллектора статистики float, запись статистики, запись в файл
     private void writeFloat(float f, boolean isFloatFirstOccurrence) throws IOException {
-        try {
-            this.floatsWriter.write((String.valueOf(f) + "\n"));
+        if (isFloatFirstOccurrence) {
+            this.floatStatsCollector = new FloatStatsCollector();
+            this.floatStatsCollector.setKindOfStats(this.parser.isFullStatsNeeded());
+            this.floatsWriter  = new FileWriter(floatsOutputFileName);
+        }
+            try {
+                this.floatsWriter.write((String.valueOf(f) + "\n"));
+                this.floatStatsCollector.addValue(f);
         } catch (IOException e) {
             throw new RuntimeException("Wrong string");
         }
     }
-
+// Создание коллектора статистики String, запись статистики, запись в файл
     private void writeString(String currentSubString, boolean isStringFirstOccurrence) throws IOException {
-
+        if (isStringFirstOccurrence) {
+            this.stringStatsCollector = new StringStatsCollector();
+            this.stringStatsCollector.setKindOfStats(this.parser.isFullStatsNeeded());
+            this.stringsWriter  = new FileWriter(stringsOutputFileName);
+        }
         try {
             this.stringsWriter.write(currentSubString + "\n");
+            this.stringStatsCollector.addValue(currentSubString);
         } catch (IOException e) {
             throw new RuntimeException("Wrong string");
         }
     }
 
+    // ************************** Создание имён файлов *******************
     private void generateOutputFileNames(){
         if (parser.isFilenamePrefixNeeded()) {
             this.intsOutputFileName = parser.getOutputPath() + parser.getFileNamePrefix() + "integers.txt";
