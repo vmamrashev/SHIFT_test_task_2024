@@ -23,7 +23,6 @@ public class FloatStatsCollector extends StatsCollector{
 
     public float getMean(){
         return count > 0 ? (sum / count) : 0f;
-
     }
 
     public float getSum(){

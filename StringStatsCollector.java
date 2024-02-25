@@ -37,5 +37,4 @@ public class StringStatsCollector extends StatsCollector{
         }
         return stringStats;
     }
-
 }

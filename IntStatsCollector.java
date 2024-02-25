@@ -42,5 +42,4 @@ public class IntStatsCollector extends StatsCollector{
         }
         return this.stats;
     }
-
 }

@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-//Парсер не универсален. Не устойчив к случаям произвольной очередности ввода аргументов командной строки
-
 public class CliArgsParser {
     private boolean needFullStats;          // Флаг, устанавливаемый в true, если нужна полная статистика
     private boolean needFilenamePrefix;     // Флаг, устанавливаемый в true, если необходимо добавлять префикс к именам выходных файлов
@@ -10,7 +8,7 @@ public class CliArgsParser {
     private boolean needToAddToOutputFiles; // Флаг, устанавливаемый в true, если необходимо дописывать, а не перезаписывать выходные файлы
     private String outputPath;              // Строка, хранящая путь к папке, куда сохранять выходные файлы
     private String fileNamePrefix;          // Строка, хранящая префикс имён файлов
-    public List<String> fileNames;         // Список, хранящий имена выходных файлов
+    public List<String> fileNames;          // Список, хранящий имена выходных файлов
 
     public  CliArgsParser(){
         this.needFullStats = false;

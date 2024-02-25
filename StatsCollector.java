@@ -19,9 +19,7 @@ public abstract class StatsCollector {
         this.needFullStats = needFullStats;
     }
 
-
     public int getCount(){
         return count;
     }
-
 }

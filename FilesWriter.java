@@ -86,13 +86,13 @@ public class FilesWriter {
             this.intStatsCollector.setKindOfStats(this.parser.isFullStatsNeeded());
         }
         try {
-            if (parser.isAddingNeeded()) this.intsWriter.append(i + "\n");
-            else this.intsWriter.write(i + "\n");
+            this.intsWriter.write(i + "\n");
             this.intStatsCollector.addValue(i);
         } catch (IOException e) {
             throw new RuntimeException("Wrong string");
         }
     }
+
 // Создание коллектора статистики float, запись статистики, запись в файл
     private void writeFloat(float f, boolean isFloatFirstOccurrence) throws IOException {
         if (isFloatFirstOccurrence) {
@@ -101,13 +101,13 @@ public class FilesWriter {
             this.floatsWriter  = new FileWriter(floatsOutputFileName,  parser.isAddingNeeded());
         }
             try {
-                if (parser.isAddingNeeded()) this.floatsWriter.append((String.valueOf(f) + "\n"));
-                else this.floatsWriter.write((String.valueOf(f) + "\n"));
+                this.floatsWriter.write((String.valueOf(f) + "\n"));
                 this.floatStatsCollector.addValue(f);
         } catch (IOException e) {
             throw new RuntimeException("Wrong string");
         }
     }
+
 // Создание коллектора статистики String, запись статистики, запись в файл
     private void writeString(String currentSubString, boolean isStringFirstOccurrence) throws IOException {
         if (isStringFirstOccurrence) {
@@ -117,8 +117,7 @@ public class FilesWriter {
         }
         try {
             this.stringStatsCollector = new StringStatsCollector();
-            if (parser.isAddingNeeded()) this.stringsWriter.append(currentSubString + "\n");
-            else this.stringsWriter.write(currentSubString + "\n");
+            this.stringsWriter.write(currentSubString + "\n");
             this.stringStatsCollector.addValue(currentSubString);
         } catch (IOException e) {
             throw new RuntimeException("Wrong string");
