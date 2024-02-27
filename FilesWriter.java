@@ -63,15 +63,12 @@ public class FilesWriter {
 
         } while (!readString.isEmpty());
         if (this.intsWriter != null) {
-            System.out.println(intStatsCollector.getStats());
             this.intsWriter.close();
         }
         if (this.floatsWriter != null) {
-            System.out.println(floatStatsCollector.getStats());
             this.floatsWriter.close();
         }
         if (this.stringsWriter != null) {
-            System.out.println(StringStatsCollector.getStats());
             this.stringsWriter.close();
         }
     }
